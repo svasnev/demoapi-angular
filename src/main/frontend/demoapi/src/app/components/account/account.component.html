@@ -1,0 +1,6 @@
+<h2>{{systemAccount.firstName}} {{systemAccount.lastName}}</h2>
+<router-outlet></router-outlet>
+<nav>
+  <a routerLink="/systemAccount/{{systemAccount.id}}/cards">Cards</a> |
+  <a routerLink="/systemAccount/{{systemAccount.id}}/wallets">Wallets</a>
+</nav>

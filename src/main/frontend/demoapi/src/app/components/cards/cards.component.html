@@ -1,0 +1,21 @@
+<h2>Cards</h2>
+
+<ul>
+  <li *ngFor="let card of cards">
+    <span>{{card.cardNumber}}</span> : {{card.balance}}
+  </li>
+</ul>
+
+<div >
+  <h2>Add card</h2>
+  <div>
+    <label>Card number:
+      <input type="text" name="cardNumber" [(ngModel)]="cardNumber" #cardToAddNumber="ngModel" placeholder="1234-5678-1234-5678"
+             pattern="{{pattern}}"/>
+      <app-show-errors [control]="cardToAddNumber"></app-show-errors>
+    </label>
+
+  </div>
+  <button (click)="addCard()" [disabled]="!cardToAddNumber.valid">Add</button>
+</div>
+
