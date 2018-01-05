@@ -1,0 +1,54 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet author="svasnev" id="paymentTable">
+		<createTable tableName="payment">
+			<column name="id" type="UUID" >
+				<constraints nullable="false" primaryKey="true" unique="true"/>
+			</column>
+			<column name="payment_type" type="varchar(50)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="wallet_id" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+			<column name="amount" type="DECIMAL" defaultValue="0.0">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint baseColumnNames="wallet_id"
+		                         baseTableName="payment"
+		                         constraintName="fk_payment_wallet_id"
+		                         referencedColumnNames="id"
+		                         referencedTableName="wallet"/>
+
+	</changeSet>
+
+	<changeSet author="svasnev" id="createDateToTables">
+		<addColumn tableName="system_account">
+			<column name="create_date" type="date" defaultValueComputed="SELECT CURRENT_DATE()">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="wallet">
+			<column name="create_date" type="date" defaultValueComputed="SELECT CURRENT_DATE()">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="card">
+			<column name="create_date" type="date" defaultValueComputed="SELECT CURRENT_DATE()">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="payment">
+			<column name="create_date" type="date" defaultValueComputed="SELECT CURRENT_DATE()">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+	</changeSet>
+</databaseChangeLog>

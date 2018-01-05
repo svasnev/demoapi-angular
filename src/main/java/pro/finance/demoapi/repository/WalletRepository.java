@@ -1,5 +1,6 @@
 package pro.finance.demoapi.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
 
@@ -11,5 +12,8 @@ import pro.finance.demoapi.domain.Wallet;
 public interface WalletRepository extends CrudRepository<Wallet, UUID> {
 
 	List<Wallet> findAllBySystemAccountId(UUID systemAccountId);
+
+	Optional<Wallet> findOneByNumber(String number);
+
 
 }

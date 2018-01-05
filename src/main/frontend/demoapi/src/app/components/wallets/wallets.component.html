@@ -2,6 +2,11 @@
 
 <ul>
   <li *ngFor="let wallet of wallets">
-    <span>{{wallet.number}}</span> : {{wallet.balance}}
+
+    {{wallet.number}}
+    {{wallet.balance}}
+
+    <a routerLink="/systemAccount/{{systemAccount.id}}/wallets/{{wallet.number}}">Show payments</a>
   </li>
 </ul>
+<router-outlet></router-outlet>

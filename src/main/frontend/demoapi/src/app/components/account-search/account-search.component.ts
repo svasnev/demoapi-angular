@@ -23,7 +23,6 @@ export class AccountSearchComponent implements OnInit {
   search(): void{
     this.accountService.getSystemAccountByEmail(this.searchAccountEmail)
       .subscribe(account => {
-        console.log(account);
         this.session.put("systemAccount", account);
         this.router.navigate([`/systemAccount/${account.id}`])
       });

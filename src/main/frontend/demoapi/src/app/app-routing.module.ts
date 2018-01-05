@@ -4,13 +4,20 @@ import {AccountSearchComponent} from "./components/account-search/account-search
 import {AccountComponent} from "./components/account/account.component";
 import {CardsComponent} from "./components/cards/cards.component";
 import {WalletsComponent} from "./components/wallets/wallets.component";
+import {PaymentComponent} from "./components/payment/payment.component";
 
 
+
+const walletRoutes: Routes = [
+  {path: ':walletNumber', component: PaymentComponent}
+];
 
 const accountRoutes: Routes = [
   {path: 'cards', component: CardsComponent},
-  {path: 'wallets', component: WalletsComponent},
+  {path: 'wallets', component: WalletsComponent, children: walletRoutes},
 ];
+
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/search', pathMatch: 'full' },

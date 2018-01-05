@@ -5,6 +5,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <include file="classpath:db/changelog/changeLog-22-12-2017.xml" />
+    <include file="classpath:db/changelog/changelog-05-01-2018.xml" />
     <include file="classpath:db/changelog/test-data.xml" />
 
 </databaseChangeLog>
