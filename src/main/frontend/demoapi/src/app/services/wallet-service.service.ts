@@ -12,4 +12,8 @@ export class WalletServiceService {
     return this.http.get<Wallet[]>(`http://localhost:8080/api/${systemAccountId}/wallets`);
   }
 
+	getWalletByWalletNumber(walletNumber: string) : Observable<Wallet>{
+		return this.http.get<Wallet>(`http://localhost:8080/api/wallets?walletNumber=${walletNumber}`);
+	}
+
 }

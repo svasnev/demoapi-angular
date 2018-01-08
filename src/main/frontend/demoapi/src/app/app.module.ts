@@ -17,6 +17,7 @@ import {WalletServiceService} from "./services/wallet-service.service";
 import {SessionServiceService} from "./services/session-service.service";
 import { PaymentComponent } from './components/payment/payment.component';
 import {PaymentServiceService} from "./services/payment-service.service";
+import { PaymentValidatorDirective } from './directive/payment-validator.directive';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {PaymentServiceService} from "./services/payment-service.service";
     CardsComponent,
     AccountComponent,
     WalletsComponent,
-    PaymentComponent
+    PaymentComponent,
+    PaymentValidatorDirective
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,18 @@
 <h2>Wallets</h2>
 
-<ul>
-  <li *ngFor="let wallet of wallets">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Wallet number</th>
+      <th>Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let wallet of wallets" (click)="selectWallet(wallet)" [routerLinkActive]="'active'" routerLink="/systemAccount/{{systemAccount.id}}/wallets/{{wallet.number}}">
+      <td>{{wallet.number}}</td>
+      <td>{{wallet.balance}}</td>
+    </tr>
+  </tbody>
+</table>
 
-    {{wallet.number}}
-    {{wallet.balance}}
-
-    <a routerLink="/systemAccount/{{systemAccount.id}}/wallets/{{wallet.number}}">Show payments</a>
-  </li>
-</ul>
 <router-outlet></router-outlet>

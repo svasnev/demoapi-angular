@@ -34,5 +34,6 @@ export class CardsComponent implements OnInit {
     this.cardService.addCardToAccount(this.accountId, this.cardNumber).subscribe(
       card => this.cards.push(card)
     );
+    this.cardNumber = '';
   }
 }

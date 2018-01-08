@@ -4,6 +4,7 @@ import static pro.finance.demoapi.domain.enums.PaymentType.DEPOSIT;
 import static pro.finance.demoapi.domain.enums.PaymentType.WITHDRAW;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -24,7 +25,6 @@ import pro.finance.demoapi.web.rest.dto.PaymentDTO;
 @RestController
 public class PaymentsRestController {
 
-
 	@Autowired
 	private PaymentRepository paymentRepository;
 
@@ -36,12 +36,13 @@ public class PaymentsRestController {
 
 
 	@RequestMapping(method = RequestMethod.GET, value = "/api/payments")
-	public List<Payment> getByWalletNumber(@RequestParam("walletNumber") String walletNumber) {
-		return paymentRepository.findAllByWalletNumber(walletNumber);
+	public List<PaymentDTO> getByWalletNumber(@RequestParam("walletNumber") String walletNumber) {
+		return paymentRepository.findAllByWalletNumber(walletNumber)
+			.stream().map(PaymentDTO::new).collect(Collectors.toList());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Payment sendPayment(@RequestBody PaymentDTO paymentDTO) {
+	public PaymentDTO sendPayment(@RequestBody PaymentDTO paymentDTO) {
 
 		Wallet wallet = walletRepository.findOneByNumber(paymentDTO.getWalletNumber())
 			.orElseThrow(() -> new EntityNotFoundException("Wallet with number " + paymentDTO.getWalletNumber() + "not found"));
@@ -59,6 +60,6 @@ public class PaymentsRestController {
 
 
 		walletRepository.save(wallet);
-		return paymentRepository.save(payment);
+		return new PaymentDTO(paymentRepository.save(payment));
 	}
 }

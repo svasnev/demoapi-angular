@@ -1,21 +1,28 @@
 <h2>Cards</h2>
 
-<ul>
-  <li *ngFor="let card of cards">
-    <span>{{card.cardNumber}}</span> : {{card.balance}}
-  </li>
-</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Card number</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let card of cards">
+            <td>{{card.cardNumber}}</td>
+            <td>{{card.balance}}</td>
+        </tr>
+    </tbody>
+</table>
 
 <div >
-  <h2>Add card</h2>
-  <div>
-    <label>Card number:
-      <input type="text" name="cardNumber" [(ngModel)]="cardNumber" #cardToAddNumber="ngModel" placeholder="1234-5678-1234-5678"
-             pattern="{{pattern}}"/>
-      <app-show-errors [control]="cardToAddNumber"></app-show-errors>
-    </label>
+    <div class="form-group">
+        <label for="cardNumber">Add card:</label>
+        <input class="form-control-static" type="text" name="cardNumber" id="cardNumber" [(ngModel)]="cardNumber" #cardToAddNumber="ngModel" placeholder="Card number"
+               pattern="{{pattern}}"/>
+        <app-show-errors [control]="cardToAddNumber"></app-show-errors>
+    </div>
 
-  </div>
-  <button (click)="addCard()" [disabled]="!cardToAddNumber.valid">Add</button>
+  <button (click)="addCard()" [disabled]="!cardToAddNumber.valid" class="btn btn-primary">Add</button>
 </div>
 

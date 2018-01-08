@@ -1,12 +1,17 @@
-<div >
-  <h2>Find account by email</h2>
-  <div>
-    <label>Email:
-      <input type="email" name="accountEmail" [(ngModel)]="searchAccountEmail" #searchEmail="ngModel" placeholder="example@example.com" email required />
+
+  <div class="search-form">
+    <label for="searchAccountEmail">Search account by email: </label>
+    <div class="cols-sm-10">
+      <input
+          class="form-control"
+          id="searchAccountEmail"
+          type="email" name="accountEmail"
+          [(ngModel)]="searchAccountEmail"
+          #searchEmail="ngModel"
+          placeholder="example@example.com" email required />
+    </div>
       <app-show-errors [control]="searchEmail"></app-show-errors>
-    </label>
 
-  </div>
-  <button (click)="search()" [disabled]="!searchEmail.valid">Search</button>
+
+  <button (click)="search()" [disabled]="!searchEmail.valid" class="btn btn-primary">Search</button>
 </div>
-

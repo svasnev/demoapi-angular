@@ -1,25 +1,41 @@
+
 <h2>Payments</h2>
 
-<ul>
-  <li *ngFor="let payment of payments">
-    <span>{{payment.paymentType}}</span> : {{payment.amount}} {{payment.createDate}}
-  </li>
-</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Payment date</th>
+            <th>Payment type</th>
+            <th>Wallet number</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let payment of payments">
+            <td>{{payment.createDate}}</td>
+            <td>{{payment.paymentType}}</td>
+            <td>{{payment.walletNumber}}</td>
+            <td>{{payment.amount}}</td>
+        </tr>
+    </tbody>
+</table>
 
 <h3><i>Add payment</i></h3>
-<form [formGroup]="addPaymentForm" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup]="addPaymentForm" (ngSubmit)="onSubmit()" app-payment-validator>
   <div class="form-group">
     <label class="center-block">Amount:
-      <input class="form-control" formControlName="amount">
+      <input class="form-control" formControlName="amount" name="amount" >
     </label>
+      <app-show-errors [control]="addPaymentForm.controls['amount']"></app-show-errors>
   </div>
   <div class="form-group">
     <label class="center-block">Payment type:
       <select class="form-control" formControlName="paymentType">
-        <option *ngFor="let type of keys()" [value]="type">{{type}}</option>
+        <option *ngFor="let type of keys" [value]="type">{{type}}</option>
       </select>
     </label>
   </div>
-
-  <button type="submit">Save</button>
+    <app-show-errors [control]="addPaymentForm"></app-show-errors>
+  <button type="submit" [disabled]="!addPaymentForm.valid" class="btn btn-primary">Save</button>
 </form>
+
