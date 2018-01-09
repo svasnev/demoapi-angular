@@ -1,7 +1,5 @@
 import { Directive } from '@angular/core';
 import {AbstractControl, FormGroup, NG_VALIDATORS, ValidationErrors, Validator} from "@angular/forms";
-import {PaymentType} from "../shared/Payment";
-import {isDefined, noUndefined} from "@angular/compiler/src/util";
 
 @Directive({
   selector: '[app-payment-validator]',
@@ -10,21 +8,15 @@ import {isDefined, noUndefined} from "@angular/compiler/src/util";
 export class PaymentValidatorDirective implements Validator{
 
 	validate(control: AbstractControl): ValidationErrors | any {
-		console.log(control);
-
 		if(control
 			&& control instanceof FormGroup
 			&& this.shouldValidate(control)){
-
 		 const amount = control.controls['amount'].value;
 		 const paymentType = control.controls['paymentType'].value;
 		 const amountInWallet = control.controls['walletAmount'].value;
 		 if(paymentType == 'WITHDRAW' && (amountInWallet - amount)<0){
-			 console.log("INVALID");
 		    return {withdrawAmountInvalid: true};
 		  }
-
-
 		}
 	}
 

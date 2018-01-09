@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {PaymentServiceService} from "../../services/payment-service.service";
 import {SessionServiceService} from "../../services/session-service.service";
 import {SystemAccount} from "../../shared/SystemAccount";
@@ -13,9 +13,11 @@ import {PaymentValidatorDirective} from "../../directive/payment-validator.direc
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy {
+
 
   constructor(private paymentService: PaymentServiceService,
+              private route: ActivatedRoute,
               private fb: FormBuilder,
               private sessionService: SessionServiceService) {}
 
@@ -30,16 +32,29 @@ export class PaymentComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.route.params.subscribe(() => {
+      this.initComponent();
+    })
+
+
 	  var keys = Object.keys(PaymentType);
 	  this.keys = keys.slice(keys.length/2);
 	  this.createForm();
-      this.sessionService.selectedWallet$.subscribe(wallet =>{
-        this.wallet = wallet;
-        this.paymentService.getPaymentsByWalletNumber(this.wallet.number)
+    this.sessionService.selectedWallet$.subscribe(wallet =>{
+      this.wallet = wallet;
+      this.paymentService.getPaymentsByWalletNumber(this.wallet.number)
             .subscribe(payments => this.payments = payments);
-        this.addPaymentForm.controls['walletAmount'].setValue(wallet.balance);
-      });
-      this.sessionService.emitAskForWallet(true);
+      this.addPaymentForm.controls['walletAmount'].setValue(wallet.balance);
+    });
+    this.initComponent();
+
+
+  }
+
+
+  initComponent(){
+    this.sessionService.emitAskForWallet(true);
   }
 
 
@@ -69,4 +84,11 @@ export class PaymentComponent implements OnInit {
 
 
   }
+
+  ngOnDestroy(): void {
+    console.log("Payments destroyed");
+  }
+
+
+
 }
